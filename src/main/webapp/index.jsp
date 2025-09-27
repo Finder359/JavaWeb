@@ -16,7 +16,8 @@
 <a href="chap01/calculator.jsp" target="_blank">简易计算器</a><br>
 
 <h2>第二单元。。。</h2>
-<a href="chap02/news.jsp" target="_blank">include指令</a><br>
+<a href="chap02/news/news.jsp" target="_blank">include指令</a><br>
+<a href="chap02/pg-game/login.jsp" target="_blank">登录界面</a><br>
 
 
 
