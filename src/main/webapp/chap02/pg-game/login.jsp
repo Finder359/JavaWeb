@@ -46,7 +46,7 @@
             box-shadow: 0 0 5px rgba(116, 235, 213, 0.6);
         }
         .login-box input[type="submit"],
-        .login-box input[type="reset"] {
+        .login-box input[type="button"] {
             width: 45%;
             padding: 10px;
             margin: 10px 5px;
@@ -60,7 +60,7 @@
             background: #74ebd5;
             color: #333;
         }
-        .login-box input[type="reset"] {
+        .login-box input[type="button"] {
             background: #f5f5f5;
             color: #333;
         }
