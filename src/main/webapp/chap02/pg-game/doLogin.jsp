@@ -18,7 +18,7 @@
     if ("admin".equals(username)&&"123456".equals(password)){
 String level="vip";
         session.setAttribute("username", username);  // 存用户名
-        session.setAttribute("level", "level");
+        session.setAttribute("level", level);
 
 %>
 <jsp:forward page="welcome.jsp">

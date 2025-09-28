@@ -12,10 +12,10 @@
 </head>
 <body>
 <%--<%@include file="top.jsp"%>--%>
-<jsp:include page="top.jsp"> </jsp:include>
+<jsp:include page="top.jsp"></jsp:include>
 <p> 666孙承武开A8不叫我</p>
 <%--<%@include file="bottom.jsp"%>--%>
-<jsp:include page="bottom.jsp"> </jsp:include>
+<jsp:include page="bottom.jsp"></jsp:include>
 
 </body>
 </html>

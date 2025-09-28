@@ -11,8 +11,8 @@
     <title>welcome</title>
 </head>
 <body>
-<p>欢迎<%=request.getParameter("username")%>，用户等级：<%=request.getParameter("level")%>
-</p>
+<p>欢迎 <%= session.getAttribute("username") %> ，用户等级：<%= session.getAttribute("level") %> </p>
+
 <div>
     <h3>线上娱乐项目推荐：</h3>
     <ul>
