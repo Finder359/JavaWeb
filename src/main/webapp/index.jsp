@@ -19,9 +19,11 @@
 <a href="chap02/news/news.jsp" target="_blank">include指令</a><br>
 <a href="chap02/pg-game/login.jsp" target="_blank">登录界面</a><br>
 
+<h2>第三单元。。。</h2>
 
-<h2>测试页面跳转专用t1</h2>
-<a href="temp/t1.jsp" target="_blank">登录界面</a><br>
+
+<h2>测试页面t1</h2>
+<a href="temp/t1.jsp" target="_blank">t1</a><br>
 
 
 

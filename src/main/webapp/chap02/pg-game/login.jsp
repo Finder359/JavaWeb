@@ -73,14 +73,42 @@
     </style>
 </head>
 <body>
+<%
+    // 检查是否已有登录状态（session）
+    if (session.getAttribute("username") != null) {
+        response.sendRedirect("welcome.jsp");
+        return;
+    }
+
+    // 检查是否有自动登录 cookie
+    Cookie[] cookies = request.getCookies();
+    String username = "";
+    String token = "";
+    if (cookies != null) {
+        for (Cookie c : cookies) {
+            if ("autoLoginUser".equals(c.getName())) username = c.getValue();
+            if ("autoLoginToken".equals(c.getName())) token = c.getValue();
+        }
+    }
+
+    // 如果token存在，可以在这里验证是否有效（简单起见略）
+    if (!"".equals(token)) {
+        session.setAttribute("username", username);
+        session.setAttribute("level", "vip");
+        response.sendRedirect("welcome.jsp");
+        return;
+    }
+%>
+
 
 <div class="login-box">
     <h2>用户登录</h2>
     <form method="post" action="doLogin.jsp">
-        <input type="text" name="username" placeholder="请输入用户名" required>
+        <input type="text" name="username" value="<%=username%>" placeholder="请输入用户名" required>
         <br>
         <input type="password" name="password" placeholder="请输入密码" required>
         <br>
+        <label><input type="checkbox" name="autoLogin" value="true"> 1天内自动登录</label><br>
         <input type="submit" value="登录">
         <input type="button" value="注册" onclick="window.location.href='register.jsp'">
 

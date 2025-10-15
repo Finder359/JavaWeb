@@ -17,6 +17,18 @@
     String politics = request.getParameter("politics");
     String intro = request.getParameter("intro");
 
+//把hobby都放到hobbyList里
+    String hobbyList = "";
+
+    if (hobbies != null) {
+        for (String h : hobbies) {
+            hobbyList += h + " ";
+        }
+    } else {
+        hobbyList = "无";
+    }
+
+
     // 简单逻辑：检查两次密码是否一致
     if (password == null || !password.equals(confirmPwd)) {
 %>
@@ -28,31 +40,7 @@
 <h2>注册成功！以下是您的信息：</h2>
 <p>用户名：<%= username %></p>
 <p>性别：<%= gender %></p>
-<p>爱好：
-    <%
-        if (hobbies != null) {
-            for (String h : hobbies) {
-                out.print(h + " ");
-            }
-        } else {
-            out.print("无");
-        }
-    %>
-
-
-<%--    <%--%>
-<%--        String[] hobbies = request.getParameterValues("hobby");--%>
-<%--        if (hobbies != null) {--%>
-<%--            for (int i = 0; i < hobbies.length; i++) {--%>
-<%--                out.print(hobbies[i] + " ");--%>
-<%--            }--%>
-<%--        } else {--%>
-<%--            out.print("无");--%>
-<%--        }--%>
-<%--    %>--%>
-
-
-</p>
+<p>爱好：<%= hobbyList %></p>
 <p>政治面貌：<%= politics %></p>
 <p>简介：<%= intro %></p>
 <%

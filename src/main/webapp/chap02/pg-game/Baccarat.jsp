@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="checkLogin.jsp" %>
 <html>
 <head>
     <title>百家乐</title>
