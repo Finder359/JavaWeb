@@ -21,6 +21,17 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+<!--    用于链接Roulette的Java文件-->
+    <servlet>
+        <servlet-name>RouletteServlet</servlet-name>
+        <servlet-class>com.example.roulette.RouletteServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RouletteServlet</servlet-name>
+        <url-pattern>/RouletteServlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>
 
 

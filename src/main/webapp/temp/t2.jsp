@@ -1,83 +1,50 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.sql.*" %>
 <html>
 <head>
-    <title>百家乐</title>
-    <style>
-        /* 页面整体背景 */
-        body {
-            margin: 0;
-            font-family: "微软雅黑", Arial, sans-serif;
-            background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        /* 卡片容器 */
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            text-align: center;
-            width: 400px;
-        }
-
-        .card h1 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .card p {
-            font-size: 16px;
-            margin-bottom: 30px;
-            color: #555;
-        }
-
-        /* 按钮样式 */
-        .btn {
-            display: inline-block;
-            padding: 12px 25px;
-            margin: 5px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            color: #fff;
-            background: linear-gradient(90deg, #ff6a6a, #ff8c42);
-            transition: 0.3s;
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            background: linear-gradient(90deg, #ff8c42, #ff6a6a);
-        }
-
-        /* 用户信息样式 */
-        .userinfo {
-            margin-bottom: 25px;
-            font-size: 14px;
-            color: #888;
-        }
-    </style>
+    <title>Title</title>
 </head>
 <body>
+<%
+    String username = request.getParameter("username");
+    String password = request.getParameter("password");
 
-<div class="card">
-    <h1>🎲 百家乐 🎲</h1>
-    <div class="userinfo">
-        欢迎 <strong><%=session.getAttribute("username")%></strong>，
-        用户等级：<strong><%=session.getAttribute("level")%></strong>
-    </div>
+    String dbUrl = "jdbc:mysql://localhost:3306/userdb";
+    String dbUser = "root";
+    String dbPass = "123456";
 
-    <p>开始你的刺激百家乐之旅吧！</p>
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
 
-    <!-- 示例按钮 -->
-    <a href="#" class="btn">开始游戏</a>
-    <a href="logout.jsp" class="btn" style="background: #555;">退出登录</a>
-</div>
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");  // MySQL 8+
+        conn = DriverManager.getConnection(dbUrl, dbUser, dbPass);
+
+        String sql = "SELECT level FROM users WHERE username=? AND password=?";
+        ps = conn.prepareStatement(sql);
+        ps.setString(1, username);
+        ps.setString(2, password);  // 如果密码是哈希值，这里要用哈希后的值
+        rs = ps.executeQuery();
+
+        if (rs.next()) {
+            String level = rs.getString("level");
+            session.setAttribute("username", username);
+            session.setAttribute("level", level);
+            out.println("登录成功");
+        } else {
+            out.println("<script>alert('用户名或密码错误');location.href='t1.jsp';</script>");
+        }
+    } catch(Exception e) {
+        e.printStackTrace();
+    } finally {
+        if(rs!=null) rs.close();
+        if(ps!=null) ps.close();
+        if(conn!=null) conn.close();
+    }
+%>
+
+
 
 </body>
 </html>

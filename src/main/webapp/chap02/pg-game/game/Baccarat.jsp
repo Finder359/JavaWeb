@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="checkLogin.jsp" %>
+<%@ include file="../checkLogin.jsp" %>
 <html>
 <head>
     <title>百家乐</title>
@@ -14,7 +14,7 @@
             position: relative;
             width: 100%;
             height: 200px;
-            background: url('img/backg.jpg') no-repeat center center;
+            background: url('../img/backg.jpg') no-repeat center center;
             background-size: cover;
             display: flex;
             align-items: flex-end;
@@ -59,7 +59,7 @@
         欢迎 <%=session.getAttribute("username")%>，
         用户等级：<%=session.getAttribute("level")%>
     </div>
-    <button class="back-btn" onclick="window.location.href='welcome.jsp'">返回首页</button>
+    <button class="back-btn" onclick="window.location.href='/chap02/pg-game/welcome.jsp'">返回首页</button>
 </div>
 
 <div class="content">

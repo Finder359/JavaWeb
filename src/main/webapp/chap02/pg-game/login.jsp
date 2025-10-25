@@ -98,6 +98,10 @@
         response.sendRedirect("welcome.jsp");
         return;
     }
+
+//    boolean t=session.isNew();
+//    System.out.println(t);
+//    session.setAttribute("t",t);
 %>
 
 
