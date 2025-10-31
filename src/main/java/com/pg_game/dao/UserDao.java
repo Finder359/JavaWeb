@@ -1,10 +1,15 @@
 package com.pg_game.dao;
+
+import com.pg_game.entity.User;
+
+import java.util.ArrayList;
+
 //用于访问数据库的用户表
 public interface UserDao {
-    void queryAll();
+    ArrayList queryAll();
     int delete(int id);
 
-    void insert();
+    int insert(User user);
     void update();
 
     boolean login(String username,String password);

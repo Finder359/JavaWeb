@@ -1,68 +1,61 @@
 package com.pg_game.dao.impl;
 
 import com.pg_game.dao.UserDao;
+import com.pg_game.entity.User;
 import com.pg_game.utils.DBUtil;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 //用于实现对数据库的操作逻辑（用户表）
 public class UserDaoImpl implements UserDao {
 
     Connection conn = null;
-    Statement st = null;
     ResultSet rs = null;
+    PreparedStatement ps=null;
 //查询admin_info表中的所有记录
     @Override
-    public void queryAll() {
+    public ArrayList<User> queryAll() {
+
+        ArrayList<User> users = new ArrayList<>();
         conn = DBUtil.getConn();
-//创建语句容器
-        try {
-             st=conn.createStatement();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-//执行sql语句
+
         String sql="select * from admin_info";
         try {
-             rs= st.executeQuery(sql);
-
-            System.out.println("id\tname\tpassword");
+             ps=conn.prepareStatement(sql);
+             rs=ps.executeQuery();
 
             //遍历结果集
             while (rs.next()) {
-                int id = rs.getInt("id");
-                String username = rs.getString("name");
-                String password = rs.getString("pwd");
-
-                System.out.println(id+"\t"+username+"\t"+password);
+                User user=new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getNString("name"));
+                user.setPassword(rs.getNString("pwd"));
+                users.add(user);
             }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
 
         }finally {
-            DBUtil.close(rs,st,conn);
+            DBUtil.close(rs,ps,conn);
             }
-
-
-
+        return users;
     }
 
     @Override
     public int delete(int id) {
         int n=0;
-
-
         conn = DBUtil.getConn();
-
+        String sql="delete from admin_info where id=?";
         try {
-            st=conn.createStatement();
-            String sql="delete from admin_info where id="+id;
-            n=st.executeUpdate(sql);
+            ps=conn.prepareStatement(sql);
+            ps.setInt(1,id);
+            n=ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }finally {
-            DBUtil.close(st,conn);
+            DBUtil.close(ps,conn);
         }
 
     return n;
@@ -70,9 +63,27 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void insert() {
+    public int insert(User user) {
+        int n=0;
+        conn = DBUtil.getConn();
+
+        try {
+            String sql="insert into admin_info(name,pwd) values(?,?)";
+            ps=conn.prepareStatement(sql);
+            ps.setString(1,user.getUsername());
+            ps.setString(2,user.getPassword());
+            n=ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            DBUtil.close(ps,conn);
+        }
+
+        return n;
 
     }
+
+
 
     @Override
     public void update() {
@@ -83,23 +94,21 @@ public class UserDaoImpl implements UserDao {
     public boolean login(String username, String password) {
         conn=DBUtil.getConn();
         boolean flag=false;
+        String sql = "SELECT * FROM admin_info WHERE name=? AND pwd=?";
+        try (Connection conn = DBUtil.getConn();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        String sql = "SELECT * FROM admin_info WHERE name='" + username + "' AND pwd='" + password + "'";
+            ps.setString(1, username);
+            ps.setString(2, password);
 
-        try {
-            st=conn.createStatement();
-            rs= st.executeQuery(sql);
-            if (rs.next()){
-             flag=true;
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    flag = true;
                 }
-
+            }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-
-        }finally {
-            DBUtil.close(rs,st,conn);
+            e.printStackTrace();
         }
-
         return flag;
     }
 }

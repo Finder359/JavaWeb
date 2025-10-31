@@ -1,3 +1,4 @@
+<%@ page import="com.pg_game.dao.impl.UserDaoImpl" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -8,8 +9,11 @@
     String username = request.getParameter("username");
     String password = request.getParameter("password");
     String autoLogin = request.getParameter("autoLogin");
+    // 调用后端逻辑
+    UserDaoImpl userDao = new UserDaoImpl();
+    boolean success = userDao.login(username, password);
 
-    if ("admin".equals(username)&&"123456".equals(password)){
+    if (success){
 String level="vip";
         session.setAttribute("username", username);  // 存用户名
         session.setAttribute("level", level);

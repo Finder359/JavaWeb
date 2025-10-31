@@ -28,16 +28,16 @@ public class DBUtil {
         return conn;
     }
 
-    public static void close(ResultSet rs, Statement st, Connection conn){
+    public static void close(ResultSet rs, PreparedStatement ps, Connection conn){
         //关闭连接
         if(rs!=null){
             try {
                 rs.close();
             } catch (SQLException e) {}
         }
-        if(st!=null){
+        if(ps!=null){
             try {
-                st.close();
+                ps.close();
             } catch (SQLException e) {}
         }
         if(conn!=null){
@@ -47,12 +47,12 @@ public class DBUtil {
         }
     }
 
-    public static void close(Statement st, Connection conn){
+    public static void close(PreparedStatement ps, Connection conn){
         //关闭连接
 
-        if(st!=null){
+        if(ps!=null){
             try {
-                st.close();
+                ps.close();
             } catch (SQLException e) {}
         }
         if(conn!=null){
