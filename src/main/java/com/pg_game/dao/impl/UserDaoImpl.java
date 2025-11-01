@@ -83,12 +83,28 @@ public class UserDaoImpl implements UserDao {
 
     }
 
-
-
     @Override
-    public void update() {
+    public int update(User user) {
+        conn = DBUtil.getConn();
+        String sql = "UPDATE admin_info SET name = ?, pwd = ? WHERE id = ?";
+        int n=0;
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword());
+            ps.setInt(3, user.getId());  // 根据 id 修改对应用户
+            n = ps.executeUpdate();
 
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DBUtil.close(ps, conn);
+        }
+
+        return n;
     }
+
 
     @Override
     public boolean login(String username, String password) {

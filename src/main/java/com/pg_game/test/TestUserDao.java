@@ -11,7 +11,7 @@ public class TestUserDao {
 //        UserDaoImpl userDao = new UserDaoImpl();
 //       boolean a= userDao.login("admin","123456");
 //        System.out.println(a);
-        TestDelete();
+        TestUpdate();
     }
 
     public static void TestInsert(){
@@ -32,6 +32,17 @@ public class TestUserDao {
         UserDaoImpl userDao = new UserDaoImpl();
         int id=14;
         int n=userDao.delete(id);
+        System.out.println(n);
+    }
+
+    public static void TestUpdate(){
+        User user = new User();
+        user.setId(13);
+        user.setUsername("新用户名");
+        user.setPassword("66666");
+
+        UserDaoImpl userDao = new UserDaoImpl();
+        int n=userDao.update(user);
         System.out.println(n);
     }
 

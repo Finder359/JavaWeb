@@ -10,7 +10,7 @@ public interface UserDao {
     int delete(int id);
 
     int insert(User user);
-    void update();
+    int update(User  user);
 
     boolean login(String username,String password);
 
