@@ -46,6 +46,7 @@
     int result = userDao.insert(user);
 
     if (result > 0) {
+
 %>
 <h2>注册成功！以下是您的信息：</h2>
 <p>用户名：<%= username %></p>

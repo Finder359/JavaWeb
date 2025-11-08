@@ -18,9 +18,9 @@
 <%
     UserDaoImpl userDao = new UserDaoImpl();
     ArrayList<User> users = userDao.queryAll();
-    User user = null;
-    for (int i = 0; i < users.size(); i++) {
-        user = users.get(i);
+//    User user = null;
+    for (User user:users) {
+//        user = users.get(i);
 
 %>
     <tr>

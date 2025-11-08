@@ -5,13 +5,13 @@ import com.pg_game.dao.impl.UserDaoImpl;
 import com.pg_game.entity.User;
 import com.pg_game.utils.DBUtil;
 
+import java.util.ArrayList;
+
 public class TestUserDao {
 
     public static void main(String[] args) {
-//        UserDaoImpl userDao = new UserDaoImpl();
-//       boolean a= userDao.login("admin","123456");
-//        System.out.println(a);
-        TestUpdate();
+TestQueryAll();
+//        TestUpdate();
     }
 
     public static void TestInsert(){
@@ -25,7 +25,10 @@ public class TestUserDao {
 
     public static void TestQueryAll(){
         UserDaoImpl userDao = new UserDaoImpl();
-        userDao.queryAll();
+        ArrayList<User> users= userDao.queryAll();
+        for(User user:users){
+            System.out.println(user.toString());
+        }
     }
 
     public static void TestDelete(){
